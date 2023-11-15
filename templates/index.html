@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to HeyTaxii</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="static\images\favicon.ico.jfif" type="image/x-icon">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Cursive', sans-serif; /* Changed font style to cursive */
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url('/static/images/1.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #2ee40070;
+        }
+
+        .content {
+            text-align: center;
+            z-index: 1; /* Place content above the video */
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            color: #e3e5e6; /* Heading color */
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #ecf0f1; /* Paragraph color */
+        }
+
+        a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #398e56;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            margin: 0 10px; /* Add margin to separate buttons */
+        }
+
+        a:hover {
+            background-color:#2ee40070;
+        }
+
+        /* Additional style to push the content further down */
+        div.pretty {
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="pretty"></div>
+        <h1>Welcome to HeyTaxii</h1>
+        <p>Every mile counts.</p>
+        <a href="{{ url_for('register') }}">Register</a> | <a href="{{ url_for('login') }}">Login</a> | <a href="{{ url_for('explore') }}">Estimate fare</a>
+       
+    </div>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to HeyTaxii</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="static\images\favicon.ico.jfif" type="image/x-icon">
+    <style>
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f4f4f4;
+        }
+        #video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .content {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #555;
+        }
+
+        a {
+            color: #346436;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #346436;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #346436;
+        }
+
+        #resultBox {
+            margin-top: 20px;
+        }
+
+        #addressDetails,
+        #distanceDetails {
+            margin-top: 10px;
+            color: #333;
+        }
+
+        .pretty {
+            height: 10px;
+            background-color:#346436;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+
+<body>
+    <video id="video-background" autoplay muted loop>
+        <source src="/static/videos/v8.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="content">
+        <div class="pretty"></div>
+        <h1>welcome to HeyTaxii</h1>
+        <p>book a ridee!</p>
+        <a href="{{ url_for('register') }}">Register</a> | <a href="{{ url_for('login') }}">Login</a>
+        <div class="pretty"></div>
+        <label for="locationInput">Enter Location:</label>
+        <input type="text" id="locationInput" placeholder="Enter postal code or address">
+        <br>
+        <button id="exploreBtn">verify distance</button>
+        <div id="resultBox">
+            <div id="addressDetails"></div>
+            <div id="distanceDetails"></div>
+            <div>......................</div>
+            <div id="fareDetails"></div>
+        </div>
+    </div>
+
+   <!-- ... your existing HTML code ... -->
+
+<script>
+    document.getElementById('exploreBtn').addEventListener('click', function() {
+        const locationInput = document.getElementById('locationInput').value.trim();
+        if (locationInput === "") {
+            alert("Please enter a location");
+            return;
+        }
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                // Display current location
+                const addressDetailsElement = document.getElementById('addressDetails');
+                addressDetailsElement.innerHTML = `Current Location: Lat ${latitude}, Lon ${longitude}`;
+
+                // Use Geocoding service for user-inputted location
+                const geocodeUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(locationInput)}`;
+                
+                // Make an API request for user-inputted location
+                fetch(geocodeUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length > 0) {
+                            const userLocation = data[0];
+                            const distance = calculateDistance(latitude, longitude, userLocation.lat, userLocation.lon);
+                            const distanceDetailsElement = document.getElementById('distanceDetails');
+                            distanceDetailsElement.innerHTML = `Distance to ${userLocation.display_name}: ${distance.toFixed(2)} km`;
+
+                            // Calculate fare based on distance
+                            const fare = calculateFare(distance);
+                            const fareDetailsElement = document.getElementById('fareDetails');
+                            fareDetailsElement.innerHTML = `Estimated Fare: ${fare.toFixed(2)} Rupees`;
+                        } else {
+                            alert("Location not found. Please enter a valid postal code or address.");
+                        }
+                    })
+                    .catch(error => {
+                        alert(`Error fetching user-inputted location details: ${error.message}`);
+                    });
+            }, function(error) {
+                alert(`Geolocation error: ${error.message}`);
+            });
+        } else {
+            alert('Geolocation is not supported by your browser');
+        }
+    });
+
+    // Function to calculate distance between two points using Haversine formula
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        const R = 6371; // Radius of the Earth in kilometers
+        const dLat = deg2rad(lat2 - lat1);
+        const dLon = deg2rad(lon2 - lon1);
+        const a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const distance = R * c; // Distance in kilometers
+        return distance;
+    }
+
+    // Function to calculate fare based on distance
+    function calculateFare(distance) {
+        const baseFare = 30; // Base fare for up to 3 km
+        const additionalFareRate = 8; // Additional fare per km
+        if (distance <= 3) {
+            return baseFare;
+        } else {
+            const additionalDistance = distance - 3;
+            const additionalFare = additionalDistance * additionalFareRate;
+            return baseFare + additionalFare;
+        }
+    }
+
+    function deg2rad(deg) {
+        return deg * (Math.PI / 180);
+    }
+</script>
+
+<!-- ... your existing HTML code ... -->
+
+
+
+<!-- ... your existing HTML code ... -->
+
+</body>
+</html>

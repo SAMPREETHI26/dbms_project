@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Query Result</title>
+</head>
+<body>
+    <h1>Join Query Result</h1>
+
+    {% if result %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Ride ID</th>
+                    <th>Start Location</th>
+                    <th>End Location</th>
+                    <th>Fare</th>
+                    <th>Date of Ride</th>
+                    <th>Time of Ride</th>
+                    <th>Customer ID</th>
+                    <th>Driver ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in result %}
+                    <tr>
+                        <td>{{ row.RIDE_ID }}</td>
+                        <td>{{ row.START_LOCATION }}</td>
+                        <td>{{ row.END_LOCATION }}</td>
+                        <td>{{ row.FARE }}</td>
+                        <td>{{ row.DATE_OF_RIDE }}</td>
+                        <td>{{ row.TIME_OF_RIDE }}</td>
+                        <td>{{ row.CUSTOMER_ID }}</td>
+                        <td>{{ row.DRIVER_ID }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+</body>
+</html>

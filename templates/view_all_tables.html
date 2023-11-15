@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View All Tables</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="static\images\favicon.ico.jfif" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: -1; /* Place the video behind all other elements */
+}
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <video id="video-background" autoplay muted loop>
+        <source src="/static/videos/v4.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <h1>View All Tables</h1>
+    <form action="/view_all_tables" method="post">
+        <label for="view_criteria">Select View Criteria:</label>
+        <select name="view_criteria" id="view_criteria">
+            <option value="start_location">Start Location</option>
+            <option value="end_location">End Location</option>
+            <option value="date">Date</option>
+            <option value="customer">Customer</option>
+            <option value="driver">Driver</option>
+            <!-- Add more options for other criteria if needed -->
+        </select>
+
+        <label for="selected_value">Enter Value:</label>
+        <input type="text" name="selected_value" required>
+
+        <button type="submit">View Tables</button>
+    </form>
+</body>
+</html>
+

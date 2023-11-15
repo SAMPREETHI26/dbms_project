@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Operations</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="static\images\favicon.ico.jfif" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            overflow: hidden; /* Hide scrollbars */
+        }
+        video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            z-index: -1; /* Place the video behind all other elements */
+        }
+        form {
+            position: relative;
+            z-index: 1; /* Place the form above the video */
+            max-width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 0 auto; /* Center the form horizontally */
+            margin-top: 20vh; /* Adjust the top margin as needed */
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop>
+        <source src="/static/videos/v10.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <form id="adminForm">
+        <h2>Get info</h2>
+        <label for="operation">Select an operation:</label>
+        <select name="operation" id="operation">
+      
+            <option value="join_query">join</option>  
+            <option value="nested_query">nested</option>
+            <option value="aggregate_query">aggregate</option>
+            
+        </select>
+        <br>
+        <button type="button" onclick="performOperation()">Submit</button>
+    </form>
+
+    <script>
+        function performOperation() {
+            var selectedOperation = document.getElementById("operation").value;
+            // Redirect based on the selected option
+            switch (selectedOperation) {
+          
+             
+                case "join_query":
+                    window.location.href = "{{ url_for('join_query') }}";
+                    break;
+                case "nested_query":
+                    window.location.href = "{{ url_for('nested_query') }}";
+                    break;
+                case "aggregate_query":
+                    window.location.href = "{{ url_for('aggregate_query') }}";
+                    break;
+
+                default:
+                    // Handle default case or do nothing
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>

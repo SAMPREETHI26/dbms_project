@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Ride and Payment Details</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="static\images\favicon.ico.jfif" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f4f4f4;
+        }
+        #video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        div {
+            max-width: 600px;
+            background-color: rgba(213, 210, 210, 0.8);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        h3 {
+            margin-top: 20px;
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <video id="video-background" autoplay muted loop>
+        <source src="/static/videos/v5.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div>
+        <h2>View Ride and Payment Details</h2>
+        
+        <h3>Rides</h3>
+        <ul>
+            {% for ride in rides %}
+                <li>{{ ride.RIDE_ID }} - {{ ride.START_LOCATION }} to {{ ride.END_LOCATION }}</li>
+            {% endfor %}
+        </ul>
+        
+        <h3>Payments</h3>
+        <ul>
+            {% for payment in payments %}
+                <li>{{ payment.PAYMENT_ID }} - Amount: {{ payment.FARE }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

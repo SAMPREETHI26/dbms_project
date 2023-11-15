@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Populate Ride and Payment Tables</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="static\images\favicon.ico.jfif" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f4f4f4;
+        }
+        #video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        form {
+            max-width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4a714c;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <video id="video-background" autoplay muted loop>
+        <source src="/static/videos/v3.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <form method="POST" action="{{ url_for('populate_ride_payment') }}">
+        <h2>Populate Ride and Payment Tables</h2>
+        <label for="ride_id">Ride ID:</label>
+        <input type="text" name="ride_id" required>
+
+        <label for="start_location">Start Location:</label>
+        <input type="text" name="start_location" required>
+
+        <label for="end_location">End Location:</label>
+        <input type="text" name="end_location" required>
+
+        <label for="fare">Fare:</label>
+        <input type="text" name="fare" required>
+
+        <label for="date_of_ride">Date of Ride:</label>
+        <input type="date" name="date_of_ride" required>
+
+        <label for="time_of_ride">Time of Ride:</label>
+        <input type="time" name="time_of_ride" required>
+
+        <label for="driver_id">Driver ID:</label>
+        <input type="text" name="driver_id" required>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

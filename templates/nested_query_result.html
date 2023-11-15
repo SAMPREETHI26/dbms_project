@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nested Query Result</title>
+</head>
+<body>
+    <h1>Nested Query Results</h1>
+
+    {% if result %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Driver ID</th>
+                    <th>User ID</th>
+                    <th>License Number</th>
+                    <th>Driver Rating</th>
+                    <th>Number of Rides</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in result %}
+                    <tr>
+                        <td>{{ row.driver_id }}</td>
+                        <td>{{ row.user_id }}</td>
+                        <td>{{ row.license_number }}</td>
+                        <td>{{ row.driver_rating }}</td>
+                        <td>{{ row.numberOfRides }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No results found for the specified vehicle type.</p>
+    {% endif %}
+
+    <!-- You can add more styling and structure based on your requirements -->
+
+</body>
+</html>

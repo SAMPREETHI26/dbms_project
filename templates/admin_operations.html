@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Operations</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="static\images\favicon.ico.jfif" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            overflow: hidden; /* Hide scrollbars */
+        }
+        video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            z-index: -1; /* Place the video behind all other elements */
+        }
+        form {
+            position: relative;
+            z-index: 1; /* Place the form above the video */
+            max-width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 0 auto; /* Center the form horizontally */
+            margin-top: 20vh; /* Adjust the top margin as needed */
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop>
+        <source src="/static/videos/v10.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <form id="adminForm">
+        <h2>Admin Operations</h2>
+        <label for="operation">Select an operation:</label>
+        <select name="operation" id="operation">
+            <option value="insert_driver_customer">Insert Driver and Customer</option>
+            <option value="delete_driver_customer">Delete Driver and Customer</option>
+            <option value="update_driver_customer">Update Driver and Customer</option>
+            <option value="view_all_tables">View All Tables</option>
+            <option value="get_driver_count">Get Driver Count</option>
+        </select>
+        <br>
+        <button type="button" onclick="performOperation()">Submit</button>
+    </form>
+
+    <script>
+        function performOperation() {
+            var selectedOperation = document.getElementById("operation").value;
+            // Redirect based on the selected option
+            switch (selectedOperation) {
+                case "insert_driver_customer":
+                    window.location.href = "{{ url_for('insert_driver_customer') }}";
+                    break;
+                case "delete_driver_customer":
+                    window.location.href = "{{ url_for('delete_driver_customer') }}";
+                    break;
+                case "update_driver_customer":
+                    window.location.href = "{{ url_for('update_driver_customer') }}";
+                    break;
+                case "view_all_tables":
+                    window.location.href = "{{ url_for('view_all_tables') }}";
+                    break;
+                case "get_driver_count":
+                    window.location.href = "{{ url_for('get_driver_count') }}";
+                    break;
+
+                default:
+                    // Handle default case or do nothing
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>

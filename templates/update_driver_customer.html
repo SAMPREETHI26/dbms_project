@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Driver and Customer</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="static\images\favicon.ico.jfif" type="image/x-icon">
+    <style>
+        body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    overflow: hidden; /* Hide scrollbars */
+}
+
+video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: -1; /* Place the video behind all other elements */
+}
+
+form {
+    position: relative;
+    z-index: 1; /* Place the form above the video */
+    max-width: 400px;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; /* Center the form horizontally */
+    margin-top: 20vh; /* Adjust the top margin as needed */
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Add additional styling as needed */
+
+</style>
+</head>
+<body>
+    <video id="video-background" autoplay muted loop>
+        <source src="/static/videos/v11.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <h1>Update Driver and Customer</h1>
+    <form action="/update_driver_customer" method="post">
+        <label for="driver_id">Driver ID:</label>
+        <input type="text" name="driver_id" required>
+
+        <label for="new_license_number">New License Number:</label>
+        <input type="text" name="new_license_number" required>
+
+        <label for="customer_id">Customer ID:</label>
+        <input type="text" name="customer_id" required>
+
+        <label for="new_payment_method">New Payment Method:</label>
+        <input type="text" name="new_payment_method" required>
+
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>
